@@ -33,9 +33,6 @@ try:
     password = page_to_scrape.find_element(By.XPATH, '//*[@id="i0118"]')
     password.send_keys(os.environ['PASSWORD'])  
     page_to_scrape.find_element(By.XPATH, '//*[@id="idSIButton9"]').click()
-    time.sleep(3)
-
-    page_to_scrape.find_element(By.XPATH, '//*[@id="idBtn_Back"]').click()
     time.sleep(2)
 
     # bp
@@ -44,10 +41,10 @@ try:
     time.sleep(3)
     
     responseBP = page_to_scrape.find_element(By.XPATH, '//*[@id="region-main"]')
-    novosti_markdown = responseBP.text
+    novosti_markdownBP = responseBP.text
 
-    with open("bp.md", "w") as novosti_file:
-        novosti_file.write(novosti_markdown)
+    with open("bp.md", "w") as novosti_fileBP:
+        novosti_fileBP.write(novosti_markdownBP)
 
     heightBP = responseBP.size['height']
     widthBP = responseBP.size['width']
@@ -65,8 +62,8 @@ try:
     responseOOP = page_to_scrape.find_element(By.XPATH, '//*[@id="region-main"]')
     novosti_markdown = responseOOP.text
 
-    with open("oop.md", "w") as novosti_file:
-        novosti_file.write(novosti_markdown)
+    with open("oop.md", "w") as novosti_fileOOP:
+        novosti_fileOOP.write(novosti_markdownOOP)
 
     heightOOP = responseOOP.size['height']
     widthOOP = responseOOP.size['width']
