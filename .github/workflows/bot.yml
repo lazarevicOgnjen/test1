@@ -46,6 +46,16 @@ jobs:
           MAIL: ${{ secrets.MAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: python main.py
+
+      - name: Commit changes
+        uses: lazarevicOgnjen/git-auto-commit-action@v6
+        with:
+          commit_message: Update bp.md
+          file_pattern: bp.md oop.md
+            
+      - name: Pull latest changes
+        run: |
+          git pull origin main
           
       - name: Check changes in bp.md
         id: check_bp
@@ -64,18 +74,6 @@ jobs:
           else
             echo "OOP_CHANGED=true" >> $GITHUB_OUTPUT
           fi
-
-       # update .md
-     
-      - name: Commit changes
-        uses: lazarevicOgnjen/git-auto-commit-action@v6
-        with:
-          commit_message: Update bp.md
-          file_pattern: bp.md oop.md
-            
-      - name: Pull latest changes
-        run: |
-          git pull origin main
 
       - name: Discord bot notification
         if: steps.check_bp.outputs.BP_CHANGED == 'true'
