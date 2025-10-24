@@ -35,9 +35,6 @@ try:
     page_to_scrape.find_element(By.XPATH, '//*[@id="idSIButton9"]').click()
     time.sleep(2)
 
-    desired_width = max(width, 1200)  
-    desired_height = min(height, 1000)
-
     # bp
 
     page_to_scrape.get("https://cs.elfak.ni.ac.rs/nastava/mod/forum/search.php?id=4&words=&phrase=&notwords=&fullwords=&timefromrestrict=1&fromday=1&frommonth=1&fromyear=2025&fromhour=0&fromminute=0&hfromday=0&hfrommonth=0&hfromyear=0&hfromhour=0&hfromminute=0&htoday=1&htomonth=1&htoyear=1&htohour=1&htominute=1&forumid=&subject=&user=")
@@ -49,9 +46,11 @@ try:
     with open("bp.md", "w") as novosti_file:
         novosti_file.write(novosti_markdown)
 
-    height = responseBP.size['height']
-    width = responseBP.size['width']
-    page_to_scrape.set_window_size(desired_width, desired_height)    
+    heightBP = responseBP.size['height']
+    widthBP = responseBP.size['width']
+    desired_widthBP = max(widthBP, 1200)  
+    desired_heightBP = min(heightBP, 1000)
+    page_to_scrape.set_window_size(desired_widthBP, desired_heightBP)    
     page_to_scrape.execute_script("arguments[0].scrollIntoView(true);", responseBP)
     responseBP.screenshot('bp.png')
 
@@ -66,9 +65,11 @@ try:
     with open("oop.md", "w") as novosti_file:
         novosti_file.write(novosti_markdown)
 
-    height = responseOOP.size['height']
-    width = responseOOP.size['width']
-    page_to_scrape.set_window_size(desired_width, desired_height)    
+    heightOOP = responseOOP.size['height']
+    widthOOP = responseOOP.size['width']
+    desired_widthOOP = max(widthOOP, 1200)  
+    desired_heightOOP = min(heightOOP, 1000)
+    page_to_scrape.set_window_size(desired_widthOOP, desired_heightOOP)    
     page_to_scrape.execute_script("arguments[0].scrollIntoView(true);", responseOOP)
     responseOOP.screenshot('oop.png')
 
