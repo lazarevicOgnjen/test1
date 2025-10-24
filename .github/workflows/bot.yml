@@ -127,10 +127,10 @@ jobs:
         run: python pj.py
   
       - name: Discord bot notification
-        if: steps.check_pj.outputs.PJ_CHANGED == 'true'
+        if: steps.check_sp.outputs.SP_CHANGED == 'true'
         env:
           WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
-        run: python pj.py
+        run: python sp.py
       
       - name: Discord bot notification
         if: steps.check_oopj.outputs.OOPJ_CHANGED == 'true'
