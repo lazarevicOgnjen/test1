@@ -60,7 +60,7 @@ try:
     time.sleep(3)
     
     responseOOP = page_to_scrape.find_element(By.XPATH, '//*[@id="region-main"]')
-    novosti_markdown = responseOOP.text
+    novosti_markdownOOP = responseOOP.text
 
     with open("oop.md", "w") as novosti_fileOOP:
         novosti_fileOOP.write(novosti_markdownOOP)
