@@ -51,7 +51,7 @@ jobs:
         uses: lazarevicOgnjen/git-auto-commit-action@v6
         with:
           commit_message: Update bp.md
-          file_pattern: bp.md oop.md
+          file_pattern: bp.md oop.md aor1.md
             
       - name: Pull latest changes
         run: git pull origin main
@@ -74,6 +74,15 @@ jobs:
             echo "OOP_CHANGED=true" >> $GITHUB_OUTPUT
           fi
 
+      - name: Check changes in aor1.md
+        id: check_aor1
+        run: |
+          if git diff --quiet HEAD~1 HEAD -- aor1.md; then
+            echo "AOR1_CHANGED=false" >> $GITHUB_OUTPUT
+          else
+            echo "AOR1_CHANGED=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Discord bot notification
         if: steps.check_bp.outputs.BP_CHANGED == 'true'
         env:
@@ -85,5 +94,11 @@ jobs:
         env:
           WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
         run: python oop.py
+
+      - name: Discord bot notification
+        if: steps.check_aor1.outputs.AOR1_CHANGED == 'true'
+        env:
+          WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
+        run: python aor1.py
 
       
