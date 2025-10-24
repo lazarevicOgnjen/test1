@@ -35,9 +35,6 @@ try:
     page_to_scrape.find_element(By.XPATH, '//*[@id="idSIButton9"]').click()
     time.sleep(2)
 
-    page_to_scrape.find_element(By.XPATH, '//*[@id="idBtn_Back"]').click()
-    time.sleep(2)
-
     desired_width = max(width, 1200)  
     desired_height = min(height, 1000)
 
