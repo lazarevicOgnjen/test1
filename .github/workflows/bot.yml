@@ -46,8 +46,26 @@ jobs:
           MAIL: ${{ secrets.MAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
         run: python main.py
+          
+      - name: Check changes in bp.md
+        id: check_bp
+        run: |
+          if git diff --quiet bp.md; then
+            echo "BP_CHANGED=false" >> $GITHUB_OUTPUT
+          else
+            echo "BP_CHANGED=true" >> $GITHUB_OUTPUT
+          fi
 
-       # bp
+      - name: Check changes in oop.md
+        id: check_oop
+        run: |
+          if git diff --quiet oop.md; then
+            echo "OOP_CHANGED=false" >> $GITHUB_OUTPUT
+          else
+            echo "OOP_CHANGED=true" >> $GITHUB_OUTPUT
+          fi
+
+       # update .md
      
       - name: Commit changes
         uses: lazarevicOgnjen/git-auto-commit-action@v6
@@ -59,29 +77,11 @@ jobs:
         run: |
           git pull origin main
 
-      - name: Check changes in bp.md
-        id: check_bp
-        run: |
-          if git diff --quiet bp.md; then
-            echo "BP_CHANGED=false" >> $GITHUB_OUTPUT
-          else
-            echo "BP_CHANGED=true" >> $GITHUB_OUTPUT
-          fi
-
       - name: Discord bot notification
         if: steps.check_bp.outputs.BP_CHANGED == 'true'
         env:
           WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
         run: python bp.py
-          
-      - name: Check changes in oop.md
-        id: check_oop
-        run: |
-          if git diff --quiet oop.md; then
-            echo "OOP_CHANGED=false" >> $GITHUB_OUTPUT
-          else
-            echo "OOP_CHANGED=true" >> $GITHUB_OUTPUT
-          fi
 
       - name: Discord bot notification
         if: steps.check_oop.outputs.OOP_CHANGED == 'true'
