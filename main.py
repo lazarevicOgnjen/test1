@@ -77,6 +77,26 @@ try:
     responseOOP.screenshot('oop.png')
 
 
+    # aor1
+
+    page_to_scrape.get("https://cs.elfak.ni.ac.rs/nastava/mod/forum/search.php?id=139&words=&phrase=&notwords=&fullwords=&timefromrestrict=1&fromday=1&frommonth=1&fromyear=2020&fromhour=0&fromminute=0&hfromday=0&hfrommonth=0&hfromyear=0&hfromhour=0&hfromminute=0&htoday=1&htomonth=1&htoyear=1&htohour=1&htominute=1&forumid=&subject=&user=")
+    time.sleep(3)
+    
+    responseAOR1 = page_to_scrape.find_element(By.XPATH, '//*[@id="region-main"]')
+    novosti_markdownAOR1 = responseAOR1.text
+
+    with open("aor1.md", "w") as novosti_fileAOR1:
+        novosti_fileAOR1.write(novosti_markdownAOR1)
+
+    heightAOR1 = responseAOR1.size['height']
+    widthAOR1 = responseAOR1.size['width']
+    desired_widthAOR1 = max(widthAOR1, 1200)  
+    desired_heightAOR1 = min(heightAOR1, 1000)
+    page_to_scrape.set_window_size(desired_widthAOR1, desired_heightAOR1)    
+    page_to_scrape.execute_script("arguments[0].scrollIntoView(true);", responseAOR1)
+    responseAOR1.screenshot('aor1.png')
+
+
 
 
 
