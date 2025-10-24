@@ -56,6 +56,10 @@ jobs:
           file_pattern: |
             bp.md
             oop.md
+            
+      - name: Pull latest changes
+        run: |
+          git pull origin main
 
       - name: Check changes in bp.md
         id: check_bp
