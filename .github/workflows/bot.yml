@@ -69,6 +69,12 @@ jobs:
           else
             echo "BP_CHANGED=true" >> $GITHUB_OUTPUT
           fi
+
+      - name: Discord bot notification
+        if: steps.check_bp.outputs.BP_CHANGED == 'true'
+        env:
+          WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
+        run: python bp.py
           
       - name: Check changes in oop.md
         id: check_oop
@@ -78,12 +84,6 @@ jobs:
           else
             echo "OOP_CHANGED=true" >> $GITHUB_OUTPUT
           fi
-     
-      - name: Discord bot notification
-        if: steps.check_bp.outputs.BP_CHANGED == 'true'
-        env:
-          WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
-        run: python bp.py
 
       - name: Discord bot notification
         if: steps.check_oop.outputs.OOP_CHANGED == 'true'
