@@ -54,13 +54,12 @@ jobs:
           file_pattern: bp.md oop.md
             
       - name: Pull latest changes
-        run: |
-          git pull origin main
+        run: git pull origin main
           
       - name: Check changes in bp.md
         id: check_bp
         run: |
-          if git diff --quiet bp.md; then
+          if git diff --quiet HEAD~1 HEAD -- bp.md; then
             echo "BP_CHANGED=false" >> $GITHUB_OUTPUT
           else
             echo "BP_CHANGED=true" >> $GITHUB_OUTPUT
@@ -69,7 +68,7 @@ jobs:
       - name: Check changes in oop.md
         id: check_oop
         run: |
-          if git diff --quiet oop.md; then
+          if git diff --quiet HEAD~1 HEAD -- oop.md; then
             echo "OOP_CHANGED=false" >> $GITHUB_OUTPUT
           else
             echo "OOP_CHANGED=true" >> $GITHUB_OUTPUT
