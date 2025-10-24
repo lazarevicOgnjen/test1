@@ -33,7 +33,7 @@ try:
     password = page_to_scrape.find_element(By.XPATH, '//*[@id="i0118"]')
     password.send_keys(os.environ['PASSWORD'])  
     page_to_scrape.find_element(By.XPATH, '//*[@id="idSIButton9"]').click()
-    time.sleep(2)
+    time.sleep(3)
 
     page_to_scrape.find_element(By.XPATH, '//*[@id="idBtn_Back"]').click()
     time.sleep(2)
