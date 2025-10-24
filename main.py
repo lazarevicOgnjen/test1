@@ -119,6 +119,25 @@ try:
 
 
 
+    # oopj
+
+    page_to_scrape.get("https://cs.elfak.ni.ac.rs/nastava/mod/forum/search.php?id=41&words=&phrase=&notwords=&fullwords=&timefromrestrict=1&fromday=1&frommonth=1&fromyear=2025&fromhour=0&fromminute=0&hfromday=0&hfrommonth=0&hfromyear=0&hfromhour=0&hfromminute=0&htoday=1&htomonth=1&htoyear=1&htohour=1&htominute=1&forumid=&subject=&user=")
+    time.sleep(3)
+    
+    responseOOPJ = page_to_scrape.find_element(By.XPATH, '//*[@id="region-main"]')
+    novosti_markdownOOPJ = responseOOPJ.text
+
+    with open("oopj.md", "w") as novosti_fileOOPJ:
+        novosti_fileOOPJ.write(novosti_markdownOOPJ)
+
+    heightOOPJ = responseOOPJ.size['height']
+    widthOOPJ = responseOOPJ.size['width']
+    desired_widthOOPJ = max(widthOOPJ, 1200)  
+    desired_heightOOPJ = min(heightOOPJ, 1000)
+    page_to_scrape.set_window_size(desired_widthOOPJ, desired_heightOOPJ)    
+    page_to_scrape.execute_script("arguments[0].scrollIntoView(true);", responseOOPJ)
+    responseOOPJ.screenshot('oopj.png')
+
 
 
 
