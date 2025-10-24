@@ -51,7 +51,7 @@ jobs:
         uses: lazarevicOgnjen/git-auto-commit-action@v6
         with:
           commit_message: Update bp.md
-          file_pattern: bp.md oop.md aor1.md lp.md
+          file_pattern: bp.md oop.md aor1.md lp.md oopj.md pj.md sp.md
             
       - name: Pull latest changes
         run: git pull origin main
@@ -63,6 +63,33 @@ jobs:
             echo "BP_CHANGED=false" >> $GITHUB_OUTPUT
           else
             echo "BP_CHANGED=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check changes in sp.md
+        id: check_sp
+        run: |
+          if git diff --quiet HEAD~1 HEAD -- sp.md; then
+            echo "SP_CHANGED=false" >> $GITHUB_OUTPUT
+          else
+            echo "SP_CHANGED=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check changes in pj.md
+        id: check_pj
+        run: |
+          if git diff --quiet HEAD~1 HEAD -- pj.md; then
+            echo "PJ_CHANGED=false" >> $GITHUB_OUTPUT
+          else
+            echo "PJ_CHANGED=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check changes in oopj.md
+        id: check_oopj
+        run: |
+          if git diff --quiet HEAD~1 HEAD -- oopj.md; then
+            echo "OOPJ_CHANGED=false" >> $GITHUB_OUTPUT
+          else
+            echo "OOPJ_CHANGED=true" >> $GITHUB_OUTPUT
           fi
           
       - name: Check changes in lp.md
@@ -91,6 +118,25 @@ jobs:
           else
             echo "AOR1_CHANGED=true" >> $GITHUB_OUTPUT
           fi
+
+
+      - name: Discord bot notification
+        if: steps.check_pj.outputs.PJ_CHANGED == 'true'
+        env:
+          WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
+        run: python pj.py
+  
+      - name: Discord bot notification
+        if: steps.check_pj.outputs.PJ_CHANGED == 'true'
+        env:
+          WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
+        run: python pj.py
+      
+      - name: Discord bot notification
+        if: steps.check_oopj.outputs.OOPJ_CHANGED == 'true'
+        env:
+          WEBHOOK_MAIN: ${{ secrets.WEBHOOK_MAIN }}
+        run: python oopj.py
 
       - name: Discord bot notification
         if: steps.check_bp.outputs.BP_CHANGED == 'true'
