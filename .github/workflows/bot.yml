@@ -51,7 +51,7 @@ jobs:
         uses: lazarevicOgnjen/git-auto-commit-action@v6
         with:
           commit_message: Update bp.md
-          file_pattern: bp.md oop.md aor1.md lp.md oopj.md pj.md sp.md
+          file_pattern: | bp.md oop.md aor1.md lp.md oopj.md pj.md sp.md
             
       - name: Pull latest changes
         run: git pull origin main
